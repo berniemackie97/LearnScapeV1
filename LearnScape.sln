@@ -5,9 +5,9 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnScapeAPI", "LearnScapeAPI\LearnScapeAPI.csproj", "{FB45C322-1B00-4741-B984-B43379AE32E6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnScapeCore", "Core\LearnScapeCore.csproj", "{C808D183-6D61-42A0-925C-A4E7F88BF0DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnScapeCore", "LearnScapeCore\LearnScapeCore.csproj", "{C808D183-6D61-42A0-925C-A4E7F88BF0DB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnScapeInfrastructure", "Infrastructure\LearnScapeInfrastructure.csproj", "{ACD28939-2ACB-4ACB-B7DD-03AFDC973705}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnScapeInfrastructure", "LearnScapeInfrastructure\LearnScapeInfrastructure.csproj", "{ACD28939-2ACB-4ACB-B7DD-03AFDC973705}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
