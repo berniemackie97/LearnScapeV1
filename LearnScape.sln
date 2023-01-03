@@ -5,11 +5,9 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnScapeAPI", "LearnScapeAPI\LearnScapeAPI.csproj", "{FB45C322-1B00-4741-B984-B43379AE32E6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{C808D183-6D61-42A0-925C-A4E7F88BF0DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnScapeCore", "Core\LearnScapeCore.csproj", "{C808D183-6D61-42A0-925C-A4E7F88BF0DB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{ACD28939-2ACB-4ACB-B7DD-03AFDC973705}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnScapeAPITests", "LearnScapeAPITests1\LearnScapeAPITests.csproj", "{8AC34D5F-D487-411D-A22A-AF898783E11B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LearnScapeInfrastructure", "Infrastructure\LearnScapeInfrastructure.csproj", "{ACD28939-2ACB-4ACB-B7DD-03AFDC973705}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{ACD28939-2ACB-4ACB-B7DD-03AFDC973705}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACD28939-2ACB-4ACB-B7DD-03AFDC973705}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACD28939-2ACB-4ACB-B7DD-03AFDC973705}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8AC34D5F-D487-411D-A22A-AF898783E11B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8AC34D5F-D487-411D-A22A-AF898783E11B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8AC34D5F-D487-411D-A22A-AF898783E11B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8AC34D5F-D487-411D-A22A-AF898783E11B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
