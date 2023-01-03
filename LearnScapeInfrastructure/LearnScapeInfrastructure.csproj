@@ -6,7 +6,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core\LearnScapeCore.csproj" />
+    <ProjectReference Include="..\LearnScapeCore\LearnScapeCore.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
