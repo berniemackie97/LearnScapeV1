@@ -5,6 +5,8 @@ using Core.Specifications;
 using Infrastructure.Data;
 using LearnScapeAPI.DTO;
 using LearnScapeAPI.Errors;
+using LearnScapeAPI.Helpers;
+using LearnScapeCore.Specifications;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,14 +28,20 @@ namespace LearnScapeAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<ProductToReturnDTO>>> GetProducts()
+        public async Task<ActionResult<PaginationHelper<ProductToReturnDTO>>> GetProducts([FromQuery]ProductParameterSpecifications productParameter)
         {
-            var spec = new ProductsWithTypesAndBrandsSpecification();
+            var spec = new ProductsWithTypesAndBrandsSpecification(productParameter);
+
+            var countSpec = new ProductWithFiltersForCountSpecification(productParameter);
+
+            var totalItems = await _productRepo.CountAsync(countSpec);
+
             var products = await _productRepo.ListAsync(spec);
+            var data = _mapper.Map<IReadOnlyList<ProductBM>, IReadOnlyList<ProductToReturnDTO>>(products);
 
-            IReadOnlyList<ProductToReturnDTO> productDTO = _mapper.Map<IReadOnlyList<ProductBM>, IReadOnlyList<ProductToReturnDTO>>(products);
-
-            return Ok(productDTO);
+            PaginationHelper<ProductToReturnDTO> filteredProducts = new PaginationHelper<ProductToReturnDTO>(productParameter.PageIndex, productParameter.PageSize, totalItems, data);
+            
+            return Ok(filteredProducts);
 
         }
         
