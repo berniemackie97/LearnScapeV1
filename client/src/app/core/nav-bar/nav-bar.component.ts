@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faCoffee, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
@@ -10,13 +9,8 @@ import { faCoffee, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 export class NavBarComponent implements OnInit {
     faCoffee = faCoffee;
     faCartShopping = faCartShopping;
-    menuOpen = false;
 
     constructor() {}
 
     ngOnInit(): void {}
-
-    toggleMenu() {
-        this.menuOpen = !this.menuOpen;
-    }
 }

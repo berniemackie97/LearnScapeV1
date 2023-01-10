@@ -1,31 +1,28 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-
-import { AppRoutingModule } from "./app-routing.module";
 import { HttpClientModule } from "@angular/common/http";
 import { AppComponent } from "./app.component";
-import { NavBarComponent } from "./nav-bar/nav-bar.component";
-import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatListModule } from "@angular/material/list";
 import { MatButtonModule } from "@angular/material/button";
-
+import { CoreModule } from "./core/core.module";
+import { ShopModule } from "./shop/shop.module";
 @NgModule({
-    declarations: [AppComponent, NavBarComponent],
+    declarations: [AppComponent],
     imports: [
         BrowserModule,
-        AppRoutingModule,
+        ShopModule,
         BrowserAnimationsModule,
-        FontAwesomeModule,
         HttpClientModule,
         MatToolbarModule,
         MatSidenavModule,
         MatListModule,
         MatButtonModule,
         MatIconModule,
+        CoreModule,
     ],
     providers: [],
     bootstrap: [AppComponent],
