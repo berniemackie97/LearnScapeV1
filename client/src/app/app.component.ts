@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { faCoffee } from "@fortawesome/free-solid-svg-icons";
+import { faCoffee, faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 export function toggleMobileMenu() {
     console.log("toggleMobileMenu() called");
@@ -18,6 +18,7 @@ export function toggleMobileMenu() {
 export class AppComponent implements OnInit {
     title = "LearnScape";
     faCoffee = faCoffee;
+
 
     constructor() {}
 

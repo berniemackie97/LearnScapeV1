@@ -9,12 +9,12 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatListModule } from "@angular/material/list";
 import { MatButtonModule } from "@angular/material/button";
 import { CoreModule } from "./core/core.module";
-import { ShopModule } from "./shop/shop.module";
+import { HomeModule } from "./home/home.module";
+import { AppRoutingModule } from "./app-routing.module";
 @NgModule({
     declarations: [AppComponent],
     imports: [
         BrowserModule,
-        ShopModule,
         BrowserAnimationsModule,
         HttpClientModule,
         MatToolbarModule,
@@ -23,6 +23,8 @@ import { ShopModule } from "./shop/shop.module";
         MatButtonModule,
         MatIconModule,
         CoreModule,
+        HomeModule,
+        AppRoutingModule,
     ],
     providers: [],
     bootstrap: [AppComponent],
