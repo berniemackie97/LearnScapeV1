@@ -1,0 +1,39 @@
+.cart-no {
+  position: absolute;
+  border-radius: 50%;
+  min-height: 25px;
+  min-width: 25px;
+  font-size: 1em;
+  background-color: blue;
+  color: white;
+  text-align: center;
+  top: -16px;
+  right: 28px;
+}
+.cart-icon {
+  position: relative;
+  left: -45px; /* move the icon to the left */
+  z-index: 0; /* specify the stack order */
+}
+
+.checkout {
+    cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: #343a40;
+
+  &.active {
+    color: #007bff;
+  }
+}
+
+.logo {
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+}
+
