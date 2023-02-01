@@ -1,6 +1,8 @@
 ﻿using Core.Interfaces;
 using Infrastructure.Data;
 using LearnScapeAPI.Errors;
+using LearnScapeCore.Interfaces;
+using LearnScapeInfrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearnScapeAPI.Extensions
@@ -10,6 +12,7 @@ namespace LearnScapeAPI.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IProductRepo, ProductRepo>();
+            services.AddScoped<IBasketRepo, BasketRepo>();
             services.AddScoped<IUserRepo, UsersRepo>();
             services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
 

@@ -1,3 +1,4 @@
+import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { faCoffee, faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
