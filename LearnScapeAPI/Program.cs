@@ -3,13 +3,27 @@ using LearnScapeAPI.Extensions;
 using LearnScapeAPI.Helpers;
 using LearnScapeAPI.Middleware;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var redisConnectionString = builder.Configuration.GetConnectionString("Redis");
 
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddDbContext<StoreContext>(x => x.UseSqlite(connectionString));
+builder.Services.AddSingleton<IConnectionMultiplexer>(c =>
+{
+    if (redisConnectionString == null)
+    {
+        return ConnectionMultiplexer.Connect("localhost");
+    }
+    else
+    {
+        var config = ConfigurationOptions.Parse(redisConnectionString, true);
+        return ConnectionMultiplexer.Connect(config);
+    }
+});
 builder.Services.AddApplicationServices();
 builder.Services.AddSwaggerDocumentation();
 builder.Services.AddCors(opt =>
