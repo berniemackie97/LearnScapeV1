@@ -1,6 +1,5 @@
-import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-import { faCoffee, faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { BasketService } from "./basket/basket.service";
 
 export function toggleMobileMenu() {
     console.log("toggleMobileMenu() called");
@@ -18,10 +17,13 @@ export function toggleMobileMenu() {
 })
 export class AppComponent implements OnInit {
     title = "LearnScape";
-    faCoffee = faCoffee;
 
+    constructor(private basketService: BasketService) {}
 
-    constructor() {}
-
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        const basket = localStorage.getItem("basket_id");
+        if (basket) {
+            this.basketService.getBasket(basket);
+        }
+    }
 }

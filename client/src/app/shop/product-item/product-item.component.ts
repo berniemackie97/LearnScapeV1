@@ -1,14 +1,18 @@
-import { Component, Input } from '@angular/core';
-import { IProduct } from 'src/app/shared/models/products';
-import { faCartShopping, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
+import { Component, Input } from "@angular/core";
+import { IProduct } from "src/app/shared/models/products";
+import { BasketService } from "src/app/basket/basket.service";
 
 @Component({
-  selector: 'app-product-item',
-  templateUrl: './product-item.component.html',
-  styleUrls: ['./product-item.component.scss']
+    selector: "app-product-item",
+    templateUrl: "./product-item.component.html",
+    styleUrls: ["./product-item.component.scss"],
 })
 export class ProductItemComponent {
-  @Input() product: IProduct;
+    @Input() product: IProduct;
 
-  faShoppingBag = faShoppingBag;
+    constructor(private basketService: BasketService) {}
+
+    addItemToBasket() {
+        this.product && this.basketService.addItemToBasket(this.product);
+    }
 }
