@@ -32,38 +32,33 @@ export class ShopComponent implements OnInit {
     }
 
     getProducts() {
-        this.shopService.getProducts(this.shopParams).subscribe(
-            (response) => {
+        this.shopService.getProducts(this.shopParams).subscribe({
+            next: (response) => {
                 this.products = response.data;
                 this.shopParams.pageNumber = response.pageIndex;
                 this.shopParams.pageSize = response.pageSize;
                 this.totalCount = response.count;
             },
-            (error) => {
-                console.log(error);
-            }
-        );
+            error: (error) => console.log(error),
+        });
     }
 
     getBrands() {
-        this.shopService.getBrands().subscribe(
-            (response) => {
+        this.shopService.getBrands().subscribe({
+            next: (response) => {
                 this.brands = [{ id: 0, name: "All" }, ...response];
             },
-            (error) => {
-                console.log(error);
-            }
-        );
+            error: (error) => console.log(error),
+        });
     }
+
     getProductTypes() {
-        this.shopService.getProductTypes().subscribe(
-            (response) => {
+        this.shopService.getProductTypes().subscribe({
+            next: (response) => {
                 this.productTypes = [{ id: 0, name: "All" }, ...response];
             },
-            (error) => {
-                console.log(error);
-            }
-        );
+            error: (error) => console.log(error),
+        });
     }
 
     onBrandSelected(brandId: number) {

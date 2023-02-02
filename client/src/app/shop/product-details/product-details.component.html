@@ -6,11 +6,12 @@
         <div class="col-6">
             <h3>{{product.name}}</h3>
             <p style="font-size: 2em;">{{product.price | currency}}</p>
+            <h5 class="text-primary mb-3" *ngIf="quantityInBasket > 0"> You have {{quantityInBasket}} of this item</h5>
             <div class="d-flex justify-content-start align-items-center">
-                <i class="me-2"><fa-icon class="minus-icon text-warning" [icon]="faMinusCircle"></fa-icon></i>
-                <span class="font-weight-bold" style="font-size: 1.5em;">2</span>
-                <i class="mx-2"><fa-icon class="plus-icon text-warning" [icon]="faPlusCircle"></fa-icon></i>
-                <button class="btn btn-outline-secondary btn-lg ms-4">Add to Cart</button>
+                <a (click)="decrementQuantity()"><i  class="fa fa-minus-circle text-warning me-2" style="cursor: pointer; font-size: 2em;"></i></a>
+                <span class="font-weight-bold" style="font-size: 1.5em;">{{quantity}}</span>
+                <a (click)="incrementQuantity()"><i  class="fa fa-plus-circle text-warning mx-2" style="cursor: pointer; font-size: 2em;"></i></a>
+                <button (click)="updateBasket()" [disabled]="quantity === quantityInBasket" class="btn btn-outline-primary btn-lg ms-4">{{buttonText}}</button>
             </div>
         </div>
         <div class="row mt-5">
