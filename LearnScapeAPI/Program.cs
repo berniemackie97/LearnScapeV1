@@ -2,41 +2,21 @@ using Infrastructure.Data;
 using LearnScapeAPI.Extensions;
 using LearnScapeAPI.Helpers;
 using LearnScapeAPI.Middleware;
+using LearnScapeCore.BusinessModels.identity;
+using LearnScapeInfrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-var redisConnectionString = builder.Configuration.GetConnectionString("Redis");
+
 
 // Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddDbContext<StoreContext>(x => x.UseSqlite(connectionString));
-builder.Services.AddSingleton<IConnectionMultiplexer>(c =>
-{
-    if (redisConnectionString == null)
-    {
-        return ConnectionMultiplexer.Connect("localhost");
-    }
-    else
-    {
-        var config = ConfigurationOptions.Parse(redisConnectionString, true);
-        return ConnectionMultiplexer.Connect(config);
-    }
-});
-builder.Services.AddApplicationServices();
-builder.Services.AddSwaggerDocumentation();
-builder.Services.AddCors(opt =>
-{
-    opt.AddPolicy("CorsPolicy", policy =>
-    {
-        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
-    });
-});
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-
+builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
+
 var app = builder.Build();
 
 async void SeedDataBase()
@@ -48,8 +28,14 @@ async void SeedDataBase()
         try
         {
             var context = services.GetRequiredService<StoreContext>();
+            var identityContext = services.GetRequiredService<AppIdentityDbContext>();
+            var userManager = services.GetRequiredService<UserManager<AppUser>>();
+            
             await context.Database.MigrateAsync();
             await StoreContextSeed.SeedAsync(context, loggerFactory);
+
+            await identityContext.Database.MigrateAsync();
+            await AppIdentityDbContextSeed.SeedAUserAsync(userManager);
 
         }
         catch (Exception ex)
@@ -78,6 +64,7 @@ app.UseStaticFiles();
 
 app.UseCors("CorsPolicy");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
