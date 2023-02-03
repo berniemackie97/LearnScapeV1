@@ -13,7 +13,7 @@ namespace LearnScapeAPI.Controllers
         {
             _context = context;
         }
-
+        
         [HttpGet("testauth")]
         [Authorize]
         public ActionResult<string> GetSecretTest()

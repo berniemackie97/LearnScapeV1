@@ -3,6 +3,7 @@ using Infrastructure.Data;
 using LearnScapeAPI.Errors;
 using LearnScapeCore.Interfaces;
 using LearnScapeInfrastructure.Data;
+using LearnScapeInfrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
@@ -18,6 +19,7 @@ namespace LearnScapeAPI.Extensions
             services.AddDbContext<StoreContext>(x => x.UseSqlite(config.GetConnectionString("DefaultConnection")));
             services.AddScoped<IProductRepo, ProductRepo>();
             services.AddScoped<IBasketRepo, BasketRepo>();
+            services.AddScoped<ITokenService, TokenService>();
             services.AddSwaggerDocumentation();
             services.AddEndpointsApiExplorer();
             services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
