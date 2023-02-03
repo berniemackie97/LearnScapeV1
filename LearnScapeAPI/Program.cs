@@ -12,9 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 // Add services to the container.
-builder.Services.AddControllers();
-builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
+builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddControllers();
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 var app = builder.Build();
