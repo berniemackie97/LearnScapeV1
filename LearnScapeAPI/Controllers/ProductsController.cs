@@ -30,14 +30,15 @@ namespace LearnScapeAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<PaginationHelper<ProductToReturnDTO>>> GetProducts([FromQuery]ProductParameterSpecifications productParameter)
         {
-            var spec = new ProductsWithTypesAndBrandsSpecification(productParameter);
+            ProductsWithTypesAndBrandsSpecification spec = new ProductsWithTypesAndBrandsSpecification(productParameter);
 
-            var countSpec = new ProductWithFiltersForCountSpecification(productParameter);
+            ProductWithFiltersForCountSpecification countSpec = new ProductWithFiltersForCountSpecification(productParameter);
 
-            var totalItems = await _productRepo.CountAsync(countSpec);
+            int totalItems = await _productRepo.CountAsync(countSpec);
 
-            var products = await _productRepo.ListAsync(spec);
-            var data = _mapper.Map<IReadOnlyList<ProductBM>, IReadOnlyList<ProductToReturnDTO>>(products);
+            IReadOnlyList<ProductBM> products = await _productRepo.ListAsync(spec);
+            
+            IReadOnlyList<ProductToReturnDTO> data = _mapper.Map<IReadOnlyList<ProductBM>, IReadOnlyList<ProductToReturnDTO>>(products);
 
             PaginationHelper<ProductToReturnDTO> filteredProducts = new PaginationHelper<ProductToReturnDTO>(productParameter.PageIndex, productParameter.PageSize, totalItems, data);
             
@@ -50,9 +51,9 @@ namespace LearnScapeAPI.Controllers
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProductToReturnDTO>> GetProduct(int id)
         {
-            var spec = new ProductsWithTypesAndBrandsSpecification(id);
+            ProductsWithTypesAndBrandsSpecification spec = new ProductsWithTypesAndBrandsSpecification(id);
             
-            var product = await _productRepo.GetEntityWithSpec(spec);
+            ProductBM product = await _productRepo.GetEntityWithSpec(spec);
 
             ProductToReturnDTO productDTO = _mapper.Map<ProductBM, ProductToReturnDTO>(product);
 
@@ -66,14 +67,14 @@ namespace LearnScapeAPI.Controllers
         [HttpGet("brands")]
         public async Task<ActionResult<IReadOnlyList<ProductBrandBM>>> GetProductBrands()
         {
-            var brands = await _productBrandRepo.ListAllAsync();
+            IReadOnlyList<ProductBrandBM> brands = await _productBrandRepo.ListAllAsync();
             return Ok(brands);
         }
 
         [HttpGet("types")]
         public async Task<ActionResult<IReadOnlyList<ProductTypeBM>>> GetProductTypes()
         {
-            var types = await _productTypeRepo.ListAllAsync();
+            IReadOnlyList<ProductTypeBM> types = await _productTypeRepo.ListAllAsync();
             return Ok(types);
         }
     }

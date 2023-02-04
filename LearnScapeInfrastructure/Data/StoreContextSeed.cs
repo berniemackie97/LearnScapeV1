@@ -12,11 +12,11 @@ namespace Infrastructure.Data
             {
                 if (!context.ProductBrands.Any())
                 {
-                    var brandsData = File.ReadAllText("../Infrastructure/Data/SeedData/brands.json");
+                    string brandsData = File.ReadAllText("../Infrastructure/Data/SeedData/brands.json");
 
-                    var brands = JsonSerializer.Deserialize<List<ProductBrandBM>>(brandsData);
+                    List<ProductBrandBM> brands = JsonSerializer.Deserialize<List<ProductBrandBM>>(brandsData);
 
-                    foreach (var item in brands)
+                    foreach (ProductBrandBM item in brands)
                     {
                         context.ProductBrands.Add(item);
                     }
@@ -25,11 +25,11 @@ namespace Infrastructure.Data
                 }
                 if (!context.ProductTypes.Any())
                 {
-                    var brandsData = File.ReadAllText("../Infrastructure/Data/SeedData/types.json");
+                    string brandsData = File.ReadAllText("../Infrastructure/Data/SeedData/types.json");
 
-                    var types = JsonSerializer.Deserialize<List<ProductTypeBM>>(brandsData);
+                    List<ProductTypeBM> types = JsonSerializer.Deserialize<List<ProductTypeBM>>(brandsData);
 
-                    foreach (var item in types)
+                    foreach (ProductTypeBM item in types)
                     {
                         context.ProductTypes.Add(item);
                     }
@@ -38,11 +38,11 @@ namespace Infrastructure.Data
                 }
                 if (!context.Products.Any())
                 {
-                    var brandsData = File.ReadAllText("../Infrastructure/Data/SeedData/products.json");
+                    string brandsData = File.ReadAllText("../Infrastructure/Data/SeedData/products.json");
 
-                    var products = JsonSerializer.Deserialize<List<ProductBM>>(brandsData);
+                    List<ProductBM> products = JsonSerializer.Deserialize<List<ProductBM>>(brandsData);
 
-                    foreach (var item in products)
+                    foreach (ProductBM item in products)
                     {
                         context.Products.Add(item);
                     }
@@ -53,7 +53,7 @@ namespace Infrastructure.Data
             }
             catch (Exception ex)
             {
-                var logger = loggerFactory.CreateLogger<StoreContextSeed>();
+                ILogger<StoreContextSeed> logger = loggerFactory.CreateLogger<StoreContextSeed>();
                 logger.LogError(ex.Message);
             }
         }
