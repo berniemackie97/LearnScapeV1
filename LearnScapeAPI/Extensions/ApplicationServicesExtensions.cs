@@ -20,8 +20,6 @@ namespace LearnScapeAPI.Extensions
             services.AddScoped<IProductRepo, ProductRepo>();
             services.AddScoped<IBasketRepo, BasketRepo>();
             services.AddScoped<ITokenService, TokenService>();
-            services.AddSwaggerDocumentation();
-            services.AddEndpointsApiExplorer();
             services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
 
             services.Configure<ApiBehaviorOptions>(options =>

@@ -1,4 +1,6 @@
 ﻿
+using AutoMapper;
+using LearnScapeAPI.DTO;
 using LearnScapeCore.BusinessModels;
 using LearnScapeCore.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -8,22 +10,28 @@ namespace LearnScapeAPI.Controllers
     public class BasketController : BaseApiController
     {
         private readonly IBasketRepo _basketRepo;
-        public BasketController(IBasketRepo basketRepo)
+        private readonly IMapper _mapper;
+
+        public BasketController(IBasketRepo basketRepo, IMapper mapper)
         {
             _basketRepo = basketRepo;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<ActionResult<CustomerBasket>> GetBasketById(string id)
         {
-            var basket = await _basketRepo.GetBasketAsync(id);
+            CustomerBasket basket = await _basketRepo.GetBasketAsync(id);
             return Ok(basket ?? new CustomerBasket(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<CustomerBasket>> UpdateBasket(CustomerBasket basket)
+        public async Task<ActionResult<CustomerBasket>> UpdateBasket(CustomerBasketDTO basket)
         {
-            var updatedBasket = await _basketRepo.UpdateBasketAsync(basket);
+            CustomerBasket customerBasket = _mapper.Map<CustomerBasketDTO, CustomerBasket>(basket);
+
+            CustomerBasket updatedBasket = await _basketRepo.UpdateBasketAsync(customerBasket);
+            
             return Ok(updatedBasket);
         }
 
