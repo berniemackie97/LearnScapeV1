@@ -14,7 +14,7 @@ namespace LearnScapeInfrastructure.Identity
         {
             if (!userManager.Users.Any())
             {
-                var user = new AppUser
+                AppUser user = new AppUser
                 {
                     DisplayName = "God",
                     Email = "God@test.com",

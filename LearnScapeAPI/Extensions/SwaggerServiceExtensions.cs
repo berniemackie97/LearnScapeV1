@@ -9,7 +9,7 @@ namespace LearnScapeAPI.Extensions
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(c =>
             {
-                var securityScheme = new OpenApiSecurityScheme
+                OpenApiSecurityScheme securityScheme = new OpenApiSecurityScheme
                 {
                     Description = "JWT Auth Bearer Scheme",
                     Name = "Authorization",
@@ -23,7 +23,7 @@ namespace LearnScapeAPI.Extensions
                     }
                 };
 
-                var securityRequirement = new OpenApiSecurityRequirement
+                OpenApiSecurityRequirement securityRequirement = new OpenApiSecurityRequirement
                 {
                     {
                         securityScheme, new[] {"Bearer"}

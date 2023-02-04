@@ -25,13 +25,13 @@ namespace LearnScapeInfrastructure.Data
 
         public async Task<CustomerBasket> GetBasketAsync(string basketId)
         {
-            var data = await _database.StringGetAsync(basketId);
+            RedisValue data = await _database.StringGetAsync(basketId);
             return data.IsNullOrEmpty ? null : JsonSerializer.Deserialize<CustomerBasket>(data);
         }
 
         public async Task<CustomerBasket> UpdateBasketAsync(CustomerBasket basket)
         {
-            var created = await _database.StringSetAsync(basket.Id, JsonSerializer.Serialize(basket), TimeSpan.FromDays(30));
+            bool created = await _database.StringSetAsync(basket.Id, JsonSerializer.Serialize(basket), TimeSpan.FromDays(30));
 
             if (!created) return null;
 

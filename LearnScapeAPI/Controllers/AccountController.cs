@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace LearnScapeAPI.Controllers
 {
@@ -31,7 +32,7 @@ namespace LearnScapeAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<UserDTO>> GetCurrentUser()
         {
-            var user = await _userManager.FindByEmailFromClaimsPrincipleAsync(User);
+            AppUser user = await _userManager.FindByEmailFromClaimsPrincipleAsync(User);
 
             return new UserDTO
             {
@@ -53,7 +54,7 @@ namespace LearnScapeAPI.Controllers
         public async Task<ActionResult<AddressDTO>> GetUserAddress()
         {
             AddressDTO map;
-            var user = await _userManager.FindUserByClaimsPrincipleWithAddressAsync(HttpContext.User);
+            AppUser user = await _userManager.FindUserByClaimsPrincipleWithAddressAsync(User);
 
             return map = _mapper.Map<Address, AddressDTO>(user.Address);
         }
@@ -63,11 +64,11 @@ namespace LearnScapeAPI.Controllers
         [HttpPut("address")]
         public async Task<ActionResult<AddressDTO>> UpdateUserAddress(AddressDTO address)
         {
-            var user = await _userManager.FindUserByClaimsPrincipleWithAddressAsync(HttpContext.User);
+            AppUser user = await _userManager.FindUserByClaimsPrincipleWithAddressAsync(User);
 
             user.Address = _mapper.Map<AddressDTO, Address>(address);
 
-            var result = await _userManager.UpdateAsync(user);
+            IdentityResult result = await _userManager.UpdateAsync(user);
 
             if (result.Succeeded) return Ok(_mapper.Map<Address, AddressDTO>(user.Address));
 
@@ -78,11 +79,11 @@ namespace LearnScapeAPI.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDto)
         {
-            var user = await _userManager.FindByEmailAsync(loginDto.Email);
+            AppUser user = await _userManager.FindByEmailAsync(loginDto.Email);
 
             if (user == null) return Unauthorized(new ApiResponse(401));
 
-            var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
+            SignInResult result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
 
             if (!result.Succeeded) return Unauthorized(new ApiResponse(401));
 
@@ -102,14 +103,14 @@ namespace LearnScapeAPI.Controllers
                 return new BadRequestObjectResult(new ApiValidationErrorResponse { Errors = new[] { "Email address is in use" } });
             }
 
-            var user = new AppUser
+            AppUser user = new AppUser
             {
                 DisplayName = registerDTO.DisplayName,
                 Email = registerDTO.Email,
                 UserName = registerDTO.Email
             };
 
-            var result = await _userManager.CreateAsync(user, registerDTO.Password);
+            IdentityResult result = await _userManager.CreateAsync(user, registerDTO.Password);
 
             if (!result.Succeeded) return BadRequest(new ApiResponse(400));
 

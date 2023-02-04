@@ -14,7 +14,7 @@ namespace LearnScapeAPI.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
-            var redisConnectionString = config.GetConnectionString("Redis");
+            string redisConnectionString = config.GetConnectionString("Redis");
 
             services.AddDbContext<StoreContext>(x => x.UseSqlite(config.GetConnectionString("DefaultConnection")));
             services.AddScoped<IProductRepo, ProductRepo>();
@@ -26,12 +26,12 @@ namespace LearnScapeAPI.Extensions
             {
                 options.InvalidModelStateResponseFactory = actionContext =>
                 {
-                    var errors = actionContext.ModelState
+                    string[] errors = actionContext.ModelState
                             .Where(e => e.Value.Errors.Count > 0)
                             .SelectMany(x => x.Value.Errors)
                             .Select(x => x.ErrorMessage).ToArray();
 
-                    var errorResponse = new ApiValidationErrorResponse
+                    ApiValidationErrorResponse errorResponse = new ApiValidationErrorResponse
                     {
                         Errors = errors
                     };
@@ -47,7 +47,7 @@ namespace LearnScapeAPI.Extensions
                 }
                 else
                 {
-                    var config = ConfigurationOptions.Parse(redisConnectionString, true);
+                    ConfigurationOptions config = ConfigurationOptions.Parse(redisConnectionString, true);
                     return ConnectionMultiplexer.Connect(config);
                 }
             });

@@ -1,4 +1,5 @@
-﻿using Infrastructure.Data;
+﻿using Core.BusinessModels;
+using Infrastructure.Data;
 using LearnScapeAPI.Errors;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,7 @@ namespace LearnScapeAPI.Controllers
         [HttpGet("notfound")]
         public ActionResult GetNotFoundRequest()
         {
-            var thing = _context.Products.Find(42);
+            ProductBM thing = _context.Products.Find(42);
             if (thing == null)
             {
                 return NotFound(new ApiResponse(404));
@@ -35,8 +36,8 @@ namespace LearnScapeAPI.Controllers
         [HttpGet("servererror")]
         public ActionResult GetServerError()
         {
-            var thing = _context.Products.Find(42);
-            var thingsToReturn = thing.ToString();
+            ProductBM thing = _context.Products.Find(42);
+            string thingsToReturn = thing.ToString();
             return Ok();
         }
 
