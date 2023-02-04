@@ -12,7 +12,6 @@ namespace LearnScapeCore.BusinessModels.identity
         public string State { get; set; }
         public string ZipCode { get; set; }
 
-        [Required]
         public string AppUserId { get; set; }
 
         public AppUser AppUser { get; set; }
